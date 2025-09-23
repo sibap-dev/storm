@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government & Service-Based Internships</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .internship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .internship-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .internship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .government .company-logo {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        }
+
+        .service-based .company-logo {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        }
+
+        .company-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .internship-title {
+            font-size: 1.1rem;
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .card-details {
+            flex-grow: 1;
+        }
+
+        .detail-item {
+            display: flex;
+            margin-bottom: 12px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            min-width: 130px;
+            color: #7f8c8d;
+        }
+
+        .detail-value {
+            color: #2c3e50;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .skill-tag {
+            background: #e1f0fa;
+            color: #2980b9;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .description {
+            margin-top: 15px;
+            color: #555;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .card-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stipend {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #27ae60;
+        }
+
+        .apply-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: #2980b9;
+        }
+
+        .type-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #e74c3c;
+            color: white;
+            padding: 5px 35px;
+            transform: rotate(45deg);
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .government .type-badge {
+            background: #2c3e50;
+        }
+
+        .service-based .type-badge {
+            background: #27ae60;
+        }
+
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .internship-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .detail-item {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                min-width: auto;
+                margin-bottom: 3px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .internship-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Recommendations</h1>
+            <p class="subtitle">Government and service-based private company internship opportunities</p>
+        </header>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-globe"></i> All
+            </button>
+            <button class="filter-btn" data-filter="government">
+                <i class="fas fa-landmark"></i> Government
+            </button>
+            <button class="filter-btn" data-filter="service-based">
+                <i class="fas fa-building"></i> Service-Based
+            </button>
+        </div>
+
+        <div class="internship-grid" id="internshipContainer">
+            <!-- Internship cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Internship data for government and service-based companies only
+        const internships = [
+            {
+                id: 1,
+                company: "ISRO (Indian Space Research Organisation)",
+                title: "Research Intern",
+                type: "government",
+                sector: "Space Technology",
+                skills: ["Research Methodology", "Data Analysis", "Physics", "Engineering"],
+                duration: "6 Months",
+                location: "Bangalore, India",
+                stipend: "₹25,000/month",
+                description: "Work on cutting-edge space research projects with India's premier space agency. Contribute to satellite development and space exploration initiatives."
+            },
+            {
+                id: 2,
+                company: "TCS (Tata Consultancy Services)",
+                title: "Software Development Intern",
+                type: "service-based",
+                sector: "IT Services",
+                skills: ["Java", "Python", "SQL", "Agile Methodology"],
+                duration: "3 Months",
+                location: "Multiple Locations / Remote",
+                stipend: "₹30,000/month",
+                description: "Join one of the world's largest IT services companies. Work on real-world projects for global clients and gain experience in enterprise software development."
+            },
+            {
+                id: 3,
+                company: "DRDO (Defence Research and Development Organisation)",
+                title: "Engineering Intern",
+                type: "government",
+                sector: "Defence Technology",
+                skills: ["Mechanical Engineering", "CAD", "Research", "Problem Solving"],
+                duration: "4 Months",
+                location: "Hyderabad, India",
+                stipend: "₹20,000/month",
+                description: "Contribute to national defence projects. Work on advanced technology development in a secure research environment."
+            },
+            {
+                id: 4,
+                company: "Infosys",
+                title: "Business Analyst Intern",
+                type: "service-based",
+                sector: "IT Consulting",
+                skills: ["Business Analysis", "Requirements Gathering", "Process Modeling", "Communication"],
+                duration: "3 Months",
+                location: "Bangalore, India",
+                stipend: "₹28,000/month",
+                description: "Learn business analysis methodologies while working with cross-functional teams to deliver technology solutions for global clients."
+            },
+            {
+                id: 5,
+                company: "NITI Aayog",
+                title: "Policy Research Intern",
+                type: "government",
+                sector: "Public Policy",
+                skills: ["Policy Analysis", "Research", "Data Interpretation", "Report Writing"],
+                duration: "3 Months",
+                location: "New Delhi, India",
+                stipend: "₹15,000/month",
+                description: "Contribute to national policy formulation. Research socio-economic issues and help develop evidence-based policy recommendations."
+            },
+            {
+                id: 6,
+                company: "Wipro",
+                title: "Cloud Computing Intern",
+                type: "service-based",
+                sector: "IT Services",
+                skills: ["AWS", "Azure", "Cloud Architecture", "DevOps"],
+                duration: "4 Months",
+                location: "Pune, India / Remote",
+                stipend: "₹32,000/month",
+                description: "Gain hands-on experience with cloud technologies while working on enterprise cloud migration and optimization projects."
+            },
+            {
+                id: 7,
+                company: "BHEL (Bharat Heavy Electricals Limited)",
+                title: "Industrial Engineering Intern",
+                type: "government",
+                sector: "Heavy Engineering",
+                skills: ["Industrial Engineering", "Process Optimization", "Quality Control", "Manufacturing"],
+                duration: "5 Months",
+                location: "Tiruchirappalli, India",
+                stipend: "₹18,000/month",
+                description: "Work in one of India's largest engineering and manufacturing enterprises. Learn about heavy electrical equipment production processes."
+            },
+            {
+                id: 8,
+                company: "HCL Technologies",
+                title: "Cybersecurity Intern",
+                type: "service-based",
+                sector: "IT Security",
+                skills: ["Network Security", "Ethical Hacking", "Vulnerability Assessment", "Security Protocols"],
+                duration: "3 Months",
+                location: "Noida, India",
+                stipend: "₹35,000/month",
+                description: "Protect digital assets and infrastructure. Learn cybersecurity best practices while working on real-world security challenges."
+            }
+        ];
+
+        // Function to generate company logo based on company name
+        function generateLogo(companyName) {
+            // Extract first letters of first two words
+            const words = companyName.split(' ');
+            if (words.length >= 2) {
+                return words[0].substring(0, 1) + words[1].substring(0, 1);
+            }
+            return companyName.substring(0, 2).toUpperCase();
+        }
+
+        // Function to render internship cards
+        function renderInternships(internshipsToRender) {
+            const container = document.getElementById('internshipContainer');
+            container.innerHTML = '';
+
+            if (internshipsToRender.length === 0) {
+                container.innerHTML = '<div class="no-results">No internships match your selected criteria.</div>';
+                return;
+            }
+
+            internshipsToRender.forEach(internship => {
+                const card = document.createElement('div');
+                card.className = `internship-card ${internship.type}`;
+                card.setAttribute('data-type', internship.type);
+
+                card.innerHTML = `
+                    <div class="type-badge">${internship.type === 'government' ? 'Government' : 'Service-Based'}</div>
+                    <div class="card-header">
+                        <div class="company-logo">${generateLogo(internship.company)}</div>
+                        <div class="company-info">
+                            <h3>${internship.company}</h3>
+                            <div class="internship-title">${internship.title}</div>
+                        </div>
+                    </div>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Sector:</span>
+                            <span class="detail-value">${internship.sector}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Skills Required:</span>
+                            <div class="detail-value">
+                                <div class="skills">
+                                    ${internship.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">${internship.duration}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Location:</span>
+                            <span class="detail-value">${internship.location}</span>
+                        </div>
+                        <div class="description">${internship.description}</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stipend">${internship.stipend}</div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // Filter functionality
+        function setupFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            let activeFilter = 'all';
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Set active filter
+                    activeFilter = button.getAttribute('data-filter');
+                    applyFilters();
+                });
+            });
+
+            function applyFilters() {
+                let filteredInternships = internships;
+
+                // Apply type filter
+                if (activeFilter !== 'all') {
+                    filteredInternships = filteredInternships.filter(internship => 
+                        internship.type === activeFilter
+                    );
+                }
+
+                renderInternships(filteredInternships);
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderInternships(internships);
+            setupFilters();
+        });
+    </script>
+</body>
+</html>
