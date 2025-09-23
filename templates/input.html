@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information & Internship Registration</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .form-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .form-section:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--accent-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input {
+            width: auto;
+        }
+
+        .otp-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .otp-container input {
+            flex: 1;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .otp-btn {
+            background-color: var(--accent-color);
+            white-space: nowrap;
+        }
+
+        .otp-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .location-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .file-input {
+            padding: 10px;
+            border: 2px dashed #ddd;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-input:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            background-color: var(--success-color);
+            color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        /* Custom Multi-Select Dropdown */
+        .multiselect-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .multiselect {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .multiselect:after {
+            content: '▼';
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .multiselect.active:after {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-content label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            margin: 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dropdown-content label:hover {
+            background-color: #f5f5f5;
+        }
+
+        .dropdown-content input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .selected-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .selected-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .selected-item span {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .location-group, .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .otp-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .form-section {
+                padding: 15px;
+            }
+            
+            input, select, textarea {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Information & Internship Registration</h1>
+            <p>Please fill out the form below to register for our internship program</p>
+        </header>
+
+        <form id="registrationForm">
+            <!-- Personal Information Section -->
+            <section class="form-section">
+                <h2>Personal Information</h2>
+                
+                <div class="form-group">
+                    <label for="fullName" class="required">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fatherName">Father's Name</label>
+                    <input type="text" id="fatherName" name="fatherName">
+                </div>
+                
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="male" name="gender" value="male">
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female">Female</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="other" name="gender" value="other">
+                            <label for="other">Other</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="required">Phone Number</label>
+                    <div class="otp-container">
+                        <input type="tel" id="phone" name="phone" required>
+                        <button type="button" class="otp-btn" id="generateOtp">Send OTP</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="otp" class="required">OTP Verification</label>
+                    <input type="text" id="otp" name="otp" required>
+                </div>
+                
+                <div class="form-group location-group">
+                    <div>
+                        <label for="district">District</label>
+                        <select id="district" name="district">
+                            <option value="">Select District</option>
+                            <option value="srikakulam">Srikakulam</option>
+                            <option value="vizianagaram">Vizianagaram</option>
+                            <option value="visakhapatnam">Visakhapatnam</option>
+                            <option value="east-godavari">East Godavari</option>
+                            <option value="west-godavari">West Godavari</option>
+                            <option value="krishna">Krishna</option>
+                            <option value="guntur">Guntur</option>
+                            <option value="prakasam">Prakasam</option>
+                            <option value="nellore">Nellore</option>
+                            <option value="chittoor">Chittoor</option>
+                            <option value="kadapa">Kadapa</option>
+                            <option value="anantapur">Anantapur</option>
+                            <option value="kurnool">Kurnool</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" rows="3"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section class="form-section">
+                <h2>Education Information</h2>
+                
+                <div class="form-group">
+                    <label for="qualification" class="required">Qualification</label>
+                    <select id="qualification" name="qualification" required>
+                        <option value="">Select Qualification</option>
+                        <option value="10th">10th</option>
+                        <option value="12th">12th</option>
+                        <option value="diploma">Diploma</option>
+                        <option value="ug">UG</option>
+                        <option value="pg">PG</option>
+                        <option value="phd">PhD</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="qualificationMarks">Marks Obtained in Qualification</label>
+                    <input type="number" id="qualificationMarks" name="qualificationMarks" min="0" max="100" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="course" class="required">Course</label>
+                    <input type="text" id="course" name="course" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="courseMarks">Marks Obtained in Course</label>
+                    <input type="number" id="courseMarks" name="courseMarks" min="0" max="100" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="qualificationCertificate">Certificate Upload for Qualification</label>
+                    <input type="file" id="qualificationCertificate" name="qualificationCertificate" class="file-input">
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="form-section">
+                <h2>Skills & Experience</h2>
+                
+                <div class="form-group">
+                    <label for="interest">Area of Interest</label>
+                    <input type="text" id="interest" name="interest">
+                </div>
+                
+                <div class="form-group skills-container">
+                    <div>
+                        <label for="skills" class="required">Skills</label>
+                        <div class="multiselect-container">
+                            <div class="multiselect" id="skillsMultiselect">Select Skills</div>
+                            <div class="dropdown-content" id="skillsDropdown">
+                                <h4 style="padding: 10px 15px; margin: 0; border-bottom: 1px solid #eee;">Technical Skills</h4>
+                                <label><input type="checkbox" value="react"> React.js</label>
+                                <label><input type="checkbox" value="python"> Python</label>
+                                <label><input type="checkbox" value="java"> Java</label>
+                                <label><input type="checkbox" value="cpp"> C++</label>
+                                <label><input type="checkbox" value="html"> HTML</label>
+                                <label><input type="checkbox" value="css"> CSS</label>
+                                <label><input type="checkbox" value="javascript"> JavaScript</label>
+                                <label><input type="checkbox" value="ai-ml"> AI/ML</label>
+                                <label><input type="checkbox" value="cloud"> Cloud Computing</label>
+                                
+                                <h4 style="padding: 10px 15px; margin: 0; border-bottom: 1px solid #eee;">Non-Technical Skills</h4>
+                                <label><input type="checkbox" value="leadership"> Leadership</label>
+                                <label><input type="checkbox" value="communication"> Communication</label>
+                                <label><input type="checkbox" value="digital-marketing"> Digital Marketing</label>
+                                <label><input type="checkbox" value="content-writing"> Content Writing</label>
+                                <label><input type="checkbox" value="project-management"> Project Management</label>
+                            </div>
+                            <div class="selected-items" id="skillsSelected"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="languages">Languages Known</label>
+                        <div class="multiselect-container">
+                            <div class="multiselect" id="languagesMultiselect">Select Languages</div>
+                            <div class="dropdown-content" id="languagesDropdown">
+                                <label><input type="checkbox" value="english"> English</label>
+                                <label><input type="checkbox" value="hindi"> Hindi</label>
+                                <label><input type="checkbox" value="tamil"> Tamil</label>
+                                <label><input type="checkbox" value="telugu"> Telugu</label>
+                                <label><input type="checkbox" value="bengali"> Bengali</label>
+                                <label><input type="checkbox" value="kannada"> Kannada</label>
+                                <label><input type="checkbox" value="marathi"> Marathi</label>
+                                <label><input type="checkbox" value="other"> Other</label>
+                            </div>
+                            <div class="selected-items" id="languagesSelected"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additionalCertificates">Additional Certificates</label>
+                    <input type="file" id="additionalCertificates" name="additionalCertificates" class="file-input" multiple>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Experience in Your Area</label>
+                    <textarea id="experience" name="experience" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Prior Internship Done</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="internshipYes" name="priorInternship" value="yes">
+                            <label for="internshipYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="internshipNo" name="priorInternship" value="no" checked>
+                            <label for="internshipNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group hidden" id="internshipCertificateGroup">
+                    <label for="internshipCertificate">Upload Internship Certificate</label>
+                    <input type="file" id="internshipCertificate" name="internshipCertificate" class="file-input">
+                </div>
+            </section>
+
+            <button type="submit" class="submit-btn">Submit Registration</button>
+            
+            <div id="successMessage" class="success-message">
+                <h3>Registration Successful!</h3>
+                <p>Thank you for registering. We will contact you shortly.</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const generateOtpBtn = document.getElementById('generateOtp');
+            const otpInput = document.getElementById('otp');
+            const internshipYes = document.getElementById('internshipYes');
+            const internshipNo = document.getElementById('internshipNo');
+            const internshipCertificateGroup = document.getElementById('internshipCertificateGroup');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Custom Multi-Select Dropdowns
+            const skillsMultiselect = document.getElementById('skillsMultiselect');
+            const skillsDropdown = document.getElementById('skillsDropdown');
+            const skillsSelected = document.getElementById('skillsSelected');
+            const skillsCheckboxes = skillsDropdown.querySelectorAll('input[type="checkbox"]');
+            
+            const languagesMultiselect = document.getElementById('languagesMultiselect');
+            const languagesDropdown = document.getElementById('languagesDropdown');
+            const languagesSelected = document.getElementById('languagesSelected');
+            const languagesCheckboxes = languagesDropdown.querySelectorAll('input[type="checkbox"]');
+            
+            // Skills dropdown functionality
+            skillsMultiselect.addEventListener('click', function() {
+                skillsDropdown.classList.toggle('show');
+                skillsMultiselect.classList.toggle('active');
+                
+                // Close other dropdowns
+                languagesDropdown.classList.remove('show');
+                languagesMultiselect.classList.remove('active');
+            });
+            
+            // Languages dropdown functionality
+            languagesMultiselect.addEventListener('click', function() {
+                languagesDropdown.classList.toggle('show');
+                languagesMultiselect.classList.toggle('active');
+                
+                // Close other dropdowns
+                skillsDropdown.classList.remove('show');
+                skillsMultiselect.classList.remove('active');
+            });
+            
+            // Update selected items display for skills
+            skillsCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSelectedItems(skillsCheckboxes, skillsSelected, skillsMultiselect);
+                });
+            });
+            
+            // Update selected items display for languages
+            languagesCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSelectedItems(languagesCheckboxes, languagesSelected, languagesMultiselect);
+                });
+            });
+            
+            // Function to update selected items display
+            function updateSelectedItems(checkboxes, selectedContainer, multiselect) {
+                selectedContainer.innerHTML = '';
+                let selectedCount = 0;
+                
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        selectedCount++;
+                        const item = document.createElement('div');
+                        item.className = 'selected-item';
+                        item.innerHTML = `${checkbox.parentElement.textContent.trim()} <span>×</span>`;
+                        
+                        // Add remove functionality
+                        item.querySelector('span').addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            checkbox.checked = false;
+                            updateSelectedItems(checkboxes, selectedContainer, multiselect);
+                        });
+                        
+                        selectedContainer.appendChild(item);
+                    }
+                });
+                
+                // Update multiselect text
+                if (selectedCount === 0) {
+                    multiselect.textContent = multiselect.id === 'skillsMultiselect' ? 'Select Skills' : 'Select Languages';
+                } else {
+                    multiselect.textContent = `${selectedCount} selected`;
+                }
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!skillsMultiselect.contains(e.target) && !skillsDropdown.contains(e.target)) {
+                    skillsDropdown.classList.remove('show');
+                    skillsMultiselect.classList.remove('active');
+                }
+                
+                if (!languagesMultiselect.contains(e.target) && !languagesDropdown.contains(e.target)) {
+                    languagesDropdown.classList.remove('show');
+                    languagesMultiselect.classList.remove('active');
+                }
+            });
+            
+            // OTP Generation Simulation
+            generateOtpBtn.addEventListener('click', function() {
+                const phoneInput = document.getElementById('phone');
+                if (phoneInput.value.trim() === '') {
+                    alert('Please enter your phone number first');
+                    phoneInput.focus();
+                    return;
+                }
+                
+                // Generate a random 6-digit OTP
+                const otp = Math.floor(100000 + Math.random() * 900000);
+                
+                // In a real application, this would be sent to the user's phone
+                // For simulation, we'll display it in an alert and pre-fill the OTP field
+                alert(`OTP for ${phoneInput.value} is: ${otp}\n\n(In a real application, this would be sent via SMS)`);
+                otpInput.value = otp;
+                
+                // Disable the button for 60 seconds to prevent spam
+                generateOtpBtn.disabled = true;
+                generateOtpBtn.textContent = 'Resend OTP in 60s';
+                
+                let countdown = 60;
+                const countdownInterval = setInterval(() => {
+                    countdown--;
+                    generateOtpBtn.textContent = `Resend OTP in ${countdown}s`;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        generateOtpBtn.disabled = false;
+                        generateOtpBtn.textContent = 'Send OTP';
+                    }
+                }, 1000);
+            });
+            
+            // Show/hide internship certificate upload based on selection
+            internshipYes.addEventListener('change', function() {
+                if (this.checked) {
+                    internshipCertificateGroup.classList.remove('hidden');
+                }
+            });
+            
+            internshipNo.addEventListener('change', function() {
+                if (this.checked) {
+                    internshipCertificateGroup.classList.add('hidden');
+                }
+            });
+            
+            // Form validation and submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                const fullName = document.getElementById('fullName').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const otp = document.getElementById('otp').value.trim();
+                const qualification = document.getElementById('qualification').value;
+                const course = document.getElementById('course').value.trim();
+                
+                // Check if at least one skill is selected
+                let skillsSelected = false;
+                skillsCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) skillsSelected = true;
+                });
+                
+                let isValid = true;
+                let errorMessage = '';
+                
+                if (fullName === '') {
+                    isValid = false;
+                    errorMessage += 'Full Name is required.\n';
+                }
+                
+                if (phone === '') {
+                    isValid = false;
+                    errorMessage += 'Phone Number is required.\n';
+                } else if (!/^\d{10}$/.test(phone)) {
+                    isValid = false;
+                    errorMessage += 'Please enter a valid 10-digit phone number.\n';
+                }
+                
+                if (otp === '') {
+                    isValid = false;
+                    errorMessage += 'OTP is required.\n';
+                }
+                
+                if (qualification === '') {
+                    isValid = false;
+                    errorMessage += 'Qualification is required.\n';
+                }
+                
+                if (course === '') {
+                    isValid = false;
+                    errorMessage += 'Course is required.\n';
+                }
+                
+                if (!skillsSelected) {
+                    isValid = false;
+                    errorMessage += 'At least one skill is required.\n';
+                }
+                
+                if (!isValid) {
+                    alert('Please correct the following errors:\n\n' + errorMessage);
+                    return;
+                }
+                
+                // If validation passes, show success message
+                successMessage.style.display = 'block';
+                form.reset();
+                internshipCertificateGroup.classList.add('hidden');
+                
+                // Reset custom dropdowns
+                skillsCheckboxes.forEach(checkbox => checkbox.checked = false);
+                languagesCheckboxes.forEach(checkbox => checkbox.checked = false);
+                updateSelectedItems(skillsCheckboxes, document.getElementById('skillsSelected'), skillsMultiselect);
+                updateSelectedItems(languagesCheckboxes, document.getElementById('languagesSelected'), languagesMultiselect);
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

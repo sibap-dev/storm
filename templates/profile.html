@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information & Internship Registration - PM Internship Scheme</title>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #003366;
+            --accent-color: #ff6600;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .nav-btn {
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: var(--border-radius);
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            background-color: #e55a00;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .form-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .form-section:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--accent-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input {
+            width: auto;
+        }
+
+        .otp-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .otp-container input {
+            flex: 1;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .otp-btn {
+            background-color: var(--accent-color);
+            white-space: nowrap;
+        }
+
+        .otp-btn:hover {
+            background-color: #e55a00;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .location-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .file-input {
+            padding: 10px;
+            border: 2px dashed #ddd;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-input:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(0, 102, 204, 0.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Custom Multi-Select Dropdown */
+        .multiselect-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .multiselect {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .multiselect:after {
+            content: '▼';
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .multiselect.active:after {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-content label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            margin: 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dropdown-content label:hover {
+            background-color: #f5f5f5;
+        }
+
+        .dropdown-content input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .selected-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .selected-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .selected-item span {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .location-group, .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .otp-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .form-section {
+                padding: 15px;
+            }
+            
+            input, select, textarea {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Information & Internship Registration</h1>
+            <p>Welcome {{ user_name }}! Complete your profile for the PM Internship Scheme</p>
+        </header>
+
+        <div class="nav-buttons">
+            <a href="{{ url_for('home') }}" class="nav-btn">
+                <i class="fas fa-home"></i> Back to Dashboard
+            </a>
+            <a href="{{ url_for('logout') }}" class="nav-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'success' if category == 'success' else 'error' }}">
+                        <strong>{{ 'Success!' if category == 'success' else 'Error!' }}</strong> {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form id="registrationForm" method="POST" enctype="multipart/form-data">
+            <!-- Personal Information Section -->
+            <section class="form-section">
+                <h2>Personal Information</h2>
+                
+                <div class="form-group">
+                    <label for="fullName" class="required">Full Name</label>
+                    <input type="text" id="fullName" name="full_name" value="{{ user.full_name or '' }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fatherName">Father's Name</label>
+                    <input type="text" id="fatherName" name="father_name" value="{{ user.father_name or '' }}">
+                </div>
+                
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="male" name="gender" value="male" {{ 'checked' if user.gender == 'male' }}>
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="female" name="gender" value="female" {{ 'checked' if user.gender == 'female' }}>
+                            <label for="female">Female</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="other" name="gender" value="other" {{ 'checked' if user.gender == 'other' }}>
+                            <label for="other">Other</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="required">Phone Number</label>
+                    <div class="otp-container">
+                        <input type="tel" id="phone" name="phone" value="{{ user.phone or '' }}" required>
+                        <button type="button" class="otp-btn" id="generateOtp">Send OTP</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="otp" class="required">OTP Verification</label>
+                    <input type="text" id="otp" name="otp" required>
+                </div>
+                
+                <div class="form-group location-group">
+                    <div>
+                        <label for="district">District</label>
+                        <select id="district" name="district">
+                            <option value="">Select District</option>
+                            <option value="srikakulam" {{ 'selected' if user.district == 'srikakulam' }}>Srikakulam</option>
+                            <option value="vizianagaram" {{ 'selected' if user.district == 'vizianagaram' }}>Vizianagaram</option>
+                            <option value="visakhapatnam" {{ 'selected' if user.district == 'visakhapatnam' }}>Visakhapatnam</option>
+                            <option value="east-godavari" {{ 'selected' if user.district == 'east-godavari' }}>East Godavari</option>
+                            <option value="west-godavari" {{ 'selected' if user.district == 'west-godavari' }}>West Godavari</option>
+                            <option value="krishna" {{ 'selected' if user.district == 'krishna' }}>Krishna</option>
+                            <option value="guntur" {{ 'selected' if user.district == 'guntur' }}>Guntur</option>
+                            <option value="prakasam" {{ 'selected' if user.district == 'prakasam' }}>Prakasam</option>
+                            <option value="nellore" {{ 'selected' if user.district == 'nellore' }}>Nellore</option>
+                            <option value="chittoor" {{ 'selected' if user.district == 'chittoor' }}>Chittoor</option>
+                            <option value="kadapa" {{ 'selected' if user.district == 'kadapa' }}>Kadapa</option>
+                            <option value="anantapur" {{ 'selected' if user.district == 'anantapur' }}>Anantapur</option>
+                            <option value="kurnool" {{ 'selected' if user.district == 'kurnool' }}>Kurnool</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" rows="3">{{ user.address or '' }}</textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section class="form-section">
+                <h2>Education Information</h2>
+                
+                <div class="form-group">
+                    <label for="qualification" class="required">Qualification</label>
+                    <select id="qualification" name="qualification" required>
+                        <option value="">Select Qualification</option>
+                        <option value="10th" {{ 'selected' if user.qualification == '10th' }}>10th</option>
+                        <option value="12th" {{ 'selected' if user.qualification == '12th' }}>12th</option>
+                        <option value="diploma" {{ 'selected' if user.qualification == 'diploma' }}>Diploma</option>
+                        <option value="ug" {{ 'selected' if user.qualification == 'ug' }}>UG</option>
+                        <option value="pg" {{ 'selected' if user.qualification == 'pg' }}>PG</option>
+                        <option value="phd" {{ 'selected' if user.qualification == 'phd' }}>PhD</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="qualificationMarks">Marks Obtained in Qualification</label>
+                    <input type="number" id="qualificationMarks" name="qualification_marks" 
+                           value="{{ user.qualification_marks or '' }}" min="0" max="100" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="course" class="required">Course</label>
+                    <input type="text" id="course" name="course" value="{{ user.course or '' }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="courseMarks">Marks Obtained in Course</label>
+                    <input type="number" id="courseMarks" name="course_marks" 
+                           value="{{ user.course_marks or '' }}" min="0" max="100" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="qualificationCertificate">Certificate Upload for Qualification</label>
+                    <input type="file" id="qualificationCertificate" name="qualification_certificate" class="file-input">
+                    {% if user.qualification_certificate %}
+                        <small class="text-success">✓ Certificate uploaded</small>
+                    {% endif %}
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="form-section">
+                <h2>Skills & Experience</h2>
+                
+                <div class="form-group">
+                    <label for="interest">Area of Interest</label>
+                    <input type="text" id="interest" name="area_of_interest" value="{{ user.area_of_interest or '' }}">
+                </div>
+                
+                <div class="form-group skills-container">
+                    <div>
+                        <label for="skills" class="required">Skills</label>
+                        <div class="multiselect-container">
+                            <div class="multiselect" id="skillsMultiselect">Select Skills</div>
+                            <div class="dropdown-content" id="skillsDropdown">
+                                <h4 style="padding: 10px 15px; margin: 0; border-bottom: 1px solid #eee;">Technical Skills</h4>
+                                <label><input type="checkbox" value="react"> React.js</label>
+                                <label><input type="checkbox" value="python"> Python</label>
+                                <label><input type="checkbox" value="java"> Java</label>
+                                <label><input type="checkbox" value="cpp"> C++</label>
+                                <label><input type="checkbox" value="html"> HTML</label>
+                                <label><input type="checkbox" value="css"> CSS</label>
+                                <label><input type="checkbox" value="javascript"> JavaScript</label>
+                                <label><input type="checkbox" value="ai-ml"> AI/ML</label>
+                                <label><input type="checkbox" value="cloud"> Cloud Computing</label>
+                                
+                                <h4 style="padding: 10px 15px; margin: 0; border-bottom: 1px solid #eee;">Non-Technical Skills</h4>
+                                <label><input type="checkbox" value="leadership"> Leadership</label>
+                                <label><input type="checkbox" value="communication"> Communication</label>
+                                <label><input type="checkbox" value="digital-marketing"> Digital Marketing</label>
+                                <label><input type="checkbox" value="content-writing"> Content Writing</label>
+                                <label><input type="checkbox" value="project-management"> Project Management</label>
+                            </div>
+                            <div class="selected-items" id="skillsSelected"></div>
+                            <input type="hidden" id="skillsHidden" name="skills" value="{{ user.skills or '' }}">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="languages">Languages Known</label>
+                        <div class="multiselect-container">
+                            <div class="multiselect" id="languagesMultiselect">Select Languages</div>
+                            <div class="dropdown-content" id="languagesDropdown">
+                                <label><input type="checkbox" value="english"> English</label>
+                                <label><input type="checkbox" value="hindi"> Hindi</label>
+                                <label><input type="checkbox" value="tamil"> Tamil</label>
+                                <label><input type="checkbox" value="telugu"> Telugu</label>
+                                <label><input type="checkbox" value="bengali"> Bengali</label>
+                                <label><input type="checkbox" value="kannada"> Kannada</label>
+                                <label><input type="checkbox" value="marathi"> Marathi</label>
+                                <label><input type="checkbox" value="other"> Other</label>
+                            </div>
+                            <div class="selected-items" id="languagesSelected"></div>
+                            <input type="hidden" id="languagesHidden" name="languages" value="{{ user.languages or '' }}">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additionalCertificates">Additional Certificates</label>
+                    <input type="file" id="additionalCertificates" name="additional_certificates" class="file-input" multiple>
+                    {% if user.additional_certificates %}
+                        <small class="text-success">✓ Certificates uploaded</small>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Experience in Your Area</label>
+                    <textarea id="experience" name="experience" rows="4">{{ user.experience or '' }}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Prior Internship Done</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="internshipYes" name="prior_internship" value="yes" 
+                                   {{ 'checked' if user.prior_internship == 'yes' }}>
+                            <label for="internshipYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="internshipNo" name="prior_internship" value="no" 
+                                   {{ 'checked' if user.prior_internship == 'no' or not user.prior_internship }}>
+                            <label for="internshipNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group {{ 'hidden' if not user.prior_internship or user.prior_internship == 'no' }}" id="internshipCertificateGroup">
+                    <label for="internshipCertificate">Upload Internship Certificate</label>
+                    <input type="file" id="internshipCertificate" name="internship_certificate" class="file-input">
+                    {% if user.internship_certificate %}
+                        <small class="text-success">✓ Certificate uploaded</small>
+                    {% endif %}
+                </div>
+            </section>
+
+            <button type="submit" class="submit-btn">Save Profile & Complete Registration</button>
+        </form>
+    </div>
+
+    <!-- Include your original JavaScript with some modifications -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const generateOtpBtn = document.getElementById('generateOtp');
+            const otpInput = document.getElementById('otp');
+            const internshipYes = document.getElementById('internshipYes');
+            const internshipNo = document.getElementById('internshipNo');
+            const internshipCertificateGroup = document.getElementById('internshipCertificateGroup');
+            
+            // Multi-select functionality (your original code)
+            const skillsMultiselect = document.getElementById('skillsMultiselect');
+            const skillsDropdown = document.getElementById('skillsDropdown');
+            const skillsSelected = document.getElementById('skillsSelected');
+            const skillsCheckboxes = skillsDropdown.querySelectorAll('input[type="checkbox"]');
+            const skillsHidden = document.getElementById('skillsHidden');
+            
+            const languagesMultiselect = document.getElementById('languagesMultiselect');
+            const languagesDropdown = document.getElementById('languagesDropdown');
+            const languagesSelected = document.getElementById('languagesSelected');
+            const languagesCheckboxes = languagesDropdown.querySelectorAll('input[type="checkbox"]');
+            const languagesHidden = document.getElementById('languagesHidden');
+            
+            // Load existing selections
+            if (skillsHidden.value) {
+                const existingSkills = JSON.parse(skillsHidden.value);
+                skillsCheckboxes.forEach(checkbox => {
+                    if (existingSkills.includes(checkbox.value)) {
+                        checkbox.checked = true;
+                    }
+                });
+                updateSelectedItems(skillsCheckboxes, skillsSelected, skillsMultiselect);
+            }
+            
+            if (languagesHidden.value) {
+                const existingLanguages = JSON.parse(languagesHidden.value);
+                languagesCheckboxes.forEach(checkbox => {
+                    if (existingLanguages.includes(checkbox.value)) {
+                        checkbox.checked = true;
+                    }
+                });
+                updateSelectedItems(languagesCheckboxes, languagesSelected, languagesMultiselect);
+            }
+            
+            // Your original multi-select code here...
+            skillsMultiselect.addEventListener('click', function() {
+                skillsDropdown.classList.toggle('show');
+                skillsMultiselect.classList.toggle('active');
+                languagesDropdown.classList.remove('show');
+                languagesMultiselect.classList.remove('active');
+            });
+            
+            languagesMultiselect.addEventListener('click', function() {
+                languagesDropdown.classList.toggle('show');
+                languagesMultiselect.classList.toggle('active');
+                skillsDropdown.classList.remove('show');
+                skillsMultiselect.classList.remove('active');
+            });
+            
+            skillsCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSelectedItems(skillsCheckboxes, skillsSelected, skillsMultiselect);
+                    updateHiddenField(skillsCheckboxes, skillsHidden);
+                });
+            });
+            
+            languagesCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSelectedItems(languagesCheckboxes, languagesSelected, languagesMultiselect);
+                    updateHiddenField(languagesCheckboxes, languagesHidden);
+                });
+            });
+            
+            function updateSelectedItems(checkboxes, selectedContainer, multiselect) {
+                selectedContainer.innerHTML = '';
+                let selectedCount = 0;
+                
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        selectedCount++;
+                        const item = document.createElement('div');
+                        item.className = 'selected-item';
+                        item.innerHTML = `${checkbox.parentElement.textContent.trim()} <span>×</span>`;
+                        
+                        item.querySelector('span').addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            checkbox.checked = false;
+                            updateSelectedItems(checkboxes, selectedContainer, multiselect);
+                            updateHiddenField(checkboxes, multiselect.id === 'skillsMultiselect' ? skillsHidden : languagesHidden);
+                        });
+                        
+                        selectedContainer.appendChild(item);
+                    }
+                });
+                
+                if (selectedCount === 0) {
+                    multiselect.textContent = multiselect.id === 'skillsMultiselect' ? 'Select Skills' : 'Select Languages';
+                } else {
+                    multiselect.textContent = `${selectedCount} selected`;
+                }
+            }
+            
+            function updateHiddenField(checkboxes, hiddenField) {
+                const selected = [];
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        selected.push(checkbox.value);
+                    }
+                });
+                hiddenField.value = JSON.stringify(selected);
+            }
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!skillsMultiselect.contains(e.target) && !skillsDropdown.contains(e.target)) {
+                    skillsDropdown.classList.remove('show');
+                    skillsMultiselect.classList.remove('active');
+                }
+                
+                if (!languagesMultiselect.contains(e.target) && !languagesDropdown.contains(e.target)) {
+                    languagesDropdown.classList.remove('show');
+                    languagesMultiselect.classList.remove('active');
+                }
+            });
+            
+            // Your original OTP and form functionality...
+            generateOtpBtn.addEventListener('click', function() {
+                const phoneInput = document.getElementById('phone');
+                if (phoneInput.value.trim() === '') {
+                    alert('Please enter your phone number first');
+                    phoneInput.focus();
+                    return;
+                }
+                
+                const otp = Math.floor(100000 + Math.random() * 900000);
+                alert(`OTP for ${phoneInput.value} is: ${otp}\n\n(In a real application, this would be sent via SMS)`);
+                otpInput.value = otp;
+                
+                generateOtpBtn.disabled = true;
+                generateOtpBtn.textContent = 'Resend OTP in 60s';
+                
+                let countdown = 60;
+                const countdownInterval = setInterval(() => {
+                    countdown--;
+                    generateOtpBtn.textContent = `Resend OTP in ${countdown}s`;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        generateOtpBtn.disabled = false;
+                        generateOtpBtn.textContent = 'Send OTP';
+                    }
+                }, 1000);
+            });
+            
+            // Show/hide internship certificate upload
+            internshipYes.addEventListener('change', function() {
+                if (this.checked) {
+                    internshipCertificateGroup.classList.remove('hidden');
+                }
+            });
+            
+            internshipNo.addEventListener('change', function() {
+                if (this.checked) {
+                    internshipCertificateGroup.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
