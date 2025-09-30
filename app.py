@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, g, has_request_context, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, g, has_request_context, make_response, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from supabase import create_client, Client
@@ -2089,8 +2089,18 @@ def index():
 # Fix service worker 404 error by returning empty response
 @app.route('/service-worker.js')
 def service_worker():
-    """Return empty response to prevent 404 errors for service worker requests"""
-    return '', 204, {'Content-Type': 'application/javascript'}
+    """Return the service worker file for PWA functionality"""
+    return send_from_directory('static', 'service-worker.js', mimetype='application/javascript')
+
+@app.route('/manifest.json')
+def manifest():
+    """Return PWA manifest file"""
+    return send_from_directory('static', 'manifest.json', mimetype='application/json')
+
+@app.route('/offline.html')
+def offline():
+    """Return offline page for PWA"""
+    return render_template('offline.html')
 
 # 🔧 FIXED: Home route with better profile completion check and debug logging
 @app.route('/home')
